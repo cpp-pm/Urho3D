@@ -20,21 +20,8 @@
 # THE SOFTWARE.
 #
 
-# Limit the supported build configurations
-set (URHO3D_BUILD_CONFIGURATIONS Release RelWithDebInfo Debug)
-set (DOC_STRING "Specify CMake build configuration (single-configuration generator only), possible values are Release (default), RelWithDebInfo, and Debug")
-if (CMAKE_CONFIGURATION_TYPES)
-    # For multi-configurations generator, such as VS and Xcode
-    set (CMAKE_CONFIGURATION_TYPES ${URHO3D_BUILD_CONFIGURATIONS} CACHE STRING ${DOC_STRING} FORCE)
-    unset (CMAKE_BUILD_TYPE)
-else ()
-    # For single-configuration generator, such as Unix Makefile generator
-    if (CMAKE_BUILD_TYPE STREQUAL "")
-        # If not specified then default to Release
-        set (CMAKE_BUILD_TYPE Release)
-    endif ()
-    set (CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING ${DOC_STRING} FORCE)
-endif ()
+set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING ${DOC_STRING})
+set(CMAKE_BUILD_TYPE Release CACHE STRING ${DOC_STRING})
 
 # Define other useful variables not defined by CMake
 if (CMAKE_GENERATOR STREQUAL Xcode)
@@ -295,9 +282,6 @@ endif ()
 # Constrain the build option values in cmake-gui, if applicable
 if (CMAKE_VERSION VERSION_GREATER 2.8 OR CMAKE_VERSION VERSION_EQUAL 2.8)
     set_property (CACHE URHO3D_LIB_TYPE PROPERTY STRINGS STATIC SHARED)
-    if (NOT CMAKE_CONFIGURATION_TYPES)
-        set_property (CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${URHO3D_BUILD_CONFIGURATIONS})
-    endif ()
     if (RPI)
         set_property (CACHE RPI_ABI PROPERTY STRINGS ${RPI_SUPPORTED_ABIS})
     endif ()
