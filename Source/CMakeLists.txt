@@ -64,47 +64,38 @@ find_package(freetype CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - RapidJSON
 ## #################################################################
-hunter_add_package(rapidjson)
-find_package(rapidjson REQUIRED)
+hunter_add_package(RapidJSON)
+find_package(RapidJSON CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - JO
 ## #################################################################
-hunter_add_package(JO)
-find_package(JO CONFIG REQUIRED)
+hunter_add_package(jo_jpeg)
+find_package(jo_jpeg CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - LZ4
 ## #################################################################
-hunter_add_package(LZ4)
-find_package(LZ4 CONFIG REQUIRED)
+hunter_add_package(lz4)
+find_package(lz4 CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - PugiXml
 ## #################################################################
-hunter_add_package(PugiXml)
-find_package(PugiXml CONFIG REQUIRED)
+hunter_add_package(pugixml)
+find_package(pugixml CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - StanHull
 ## #################################################################
-hunter_add_package(StanHull)
-find_package(StanHull CONFIG REQUIRED)
+hunter_add_package(stanhull)
+find_package(stanhull CONFIG REQUIRED)
 ## #################################################################
 ## Dependencies - STB
 ## #################################################################
-hunter_add_package(STB)
-find_package(STB CONFIG REQUIRED)
+hunter_add_package(stb)
+find_package(stb CONFIG REQUIRED)
 
-# no pkg-config:
-include_directories(${RAPIDJSON_INCLUDE_DIR})
+hunter_add_package(SDL2)
+find_package(SDL2 CONFIG REQUIRED)
 
-get_cmake_property(_variableNames VARIABLES)
-foreach (_variableName ${_variableNames})
-  message(STATUS "VARIABLE: ${_variableName}=${${_variableName}}")
-endforeach()
-
-set(HUNTER_THIRD_PARTY_DEPS freetype::freetype JO::JO LZ4::LZ4 PugiXml::PugiXml StanHull::StanHull STB::STB)
-
-foreach (TARGET SDL)
-    add_subdirectory (ThirdParty/${TARGET})
-endforeach ()
+set(HUNTER_THIRD_PARTY_DEPS freetype::freetype jo_jpeg::jo_jpeg lz4::lz4 pugixml stanhull::stanhull stb::stb SDL2::SDL2)
 
 if (URHO3D_ANGELSCRIPT)
   ## #################################################################
@@ -142,12 +133,12 @@ endif ()
 if (URHO3D_DATABASE_ODBC)
     add_subdirectory (ThirdParty/nanodbc)
 endif ()
+
 if (URHO3D_DATABASE_SQLITE)
   ## #################################################################
   ## Dependencies - SQLite
   ## #################################################################
   #add_subdirectory (ThirdParty/SQLite)
-  message("USE SQLITE")
   hunter_add_package(SQLite)
   find_package(SQLite CONFIG REQUIRED)
   list(APPEND HUNTER_THIRD_PARTY_DEPS sqlite::sqlite)
@@ -222,30 +213,27 @@ if (NOT IOS AND NOT ANDROID AND NOT RPI AND NOT WEB)
     ## #################################################################
     ## Dependencies - GLEW
     ## #################################################################
-    #add_subdirectory (ThirdParty/GLEW)
-    hunter_add_package(GLEW)
-    find_package(GLEW CONFIG REQUIRED)
-    list(APPEND HUNTER_THIRD_PARTY_DEPS GLEW::GLEW)
+    hunter_add_package(glew)
+    find_package(glew CONFIG REQUIRED)
+    list(APPEND HUNTER_THIRD_PARTY_DEPS glew::glew)
     
   elseif (NOT URHO3D_D3D11)
 
     ## #################################################################
     ## Dependencies - MojoShader
     ## #################################################################
-    #add_subdirectory (ThirdParty/MojoShader)      
-    hunter_add_package(MojoShader)
-    find_package(MojoShader CONFIG REQUIRED)
-    list(APPEND HUNTER_THIRD_PARTY_DEPS MojoShader::MojoShader)
+    hunter_add_package(mojoshader)
+    find_package(mojoshader CONFIG REQUIRED)
+    list(APPEND HUNTER_THIRD_PARTY_DEPS mojoshader::mojoshader)
 
   endif ()
 
   ## #################################################################
   ## Dependencies - LibCpuId
   ## #################################################################
-  #add_subdirectory (ThirdParty/LibCpuId)
-  hunter_add_package(LibCpuId)
-  find_package(LibCpuId CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS LibCpuId::LibCpuId)
+  hunter_add_package(libcpuid)
+  find_package(libcpuid CONFIG REQUIRED)
+  list(APPEND HUNTER_THIRD_PARTY_DEPS libcpuid::libcpuid)
   
 endif ()
 
