@@ -298,17 +298,12 @@ elseif (EMSCRIPTEN)
     # Emscripten does not support generation of shared library in a conventional sense, it just produces "linked" LLVM bitcode
     set (CMAKE_SHARED_LIBRARY_SUFFIX ".bc")
 endif ()
-if (IOS)
-    # Add a custom target to build Mach-O universal binary consisting of iphoneos (universal ARM archs including 'arm64' if 64-bit is enabled) and iphonesimulator (i386 arch and also x86_64 arch if 64-bit is enabled)
-    add_custom_target (${TARGET_NAME}_universal ALL
-        COMMAND if [ '$(CONFIGURATION)' != 'Debug' ]\; then if lipo -info $<TARGET_FILE:${TARGET_NAME}> 2>/dev/null |egrep -cq 'i386.*armv7|armv7.*i386|x86_64.*arm64|arm64.*x86_64'\; then echo $<TARGET_FILE:${TARGET_NAME}> is already a Mach-O universal binary consisting of both iphoneos and iphonesimulator archs\; else mv $<TARGET_FILE:${TARGET_NAME}>{,.ori} && if lipo -info $<TARGET_FILE:${TARGET_NAME}>.ori 2>/dev/null |egrep -cq 'i386|x86_64'\; then sdk=iphoneos\; else sdk=iphonesimulator\; fi && xcodebuild -target ${TARGET_NAME} -configuration $(CONFIGURATION) -sdk $$sdk 2>&1 && mv $<TARGET_FILE:${TARGET_NAME}>{,.new} && lipo -create -output $<TARGET_FILE:${TARGET_NAME}>{,.ori,.new} && rm $<TARGET_FILE:${TARGET_NAME}>{.ori,.new}\; fi\; fi
-        DEPENDS ${TARGET_NAME}
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMENT "Creating Mach-O universal binary library consisting of both iphoneos and iphonesimulator archs")
-    install (FILES $<TARGET_FILE:${TARGET_NAME}> DESTINATION ${DEST_LIBRARY_DIR})
-else ()
-    install (TARGETS ${TARGET_NAME} RUNTIME DESTINATION ${DEST_RUNTIME_DIR} LIBRARY DESTINATION ${DEST_LIBRARY_DIR} ARCHIVE DESTINATION ${DEST_LIBRARY_DIR})
-endif ()
+install(
+    TARGETS ${TARGET_NAME}
+    RUNTIME DESTINATION ${DEST_RUNTIME_DIR}
+    LIBRARY DESTINATION ${DEST_LIBRARY_DIR}
+    ARCHIVE DESTINATION ${DEST_LIBRARY_DIR}
+)
 if (WIN32 AND URHO3D_LIB_TYPE STREQUAL SHARED)
     set (URHO3D_DLL_INSTALLED TRUE)
 endif ()
