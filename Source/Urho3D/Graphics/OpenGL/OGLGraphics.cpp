@@ -493,7 +493,7 @@ bool Graphics::SetMode(int width, int height, bool fullscreen, bool borderless, 
             {
 #ifndef __EMSCRIPTEN__
                 if (!impl_->window_)
-                    impl_->window_ = SDL_CreateWindowFrom(externalWindow_, SDL_WINDOW_OPENGL);
+                    impl_->window_ = SDL_CreateWindowFrom(externalWindow_);
                 fullscreen = false;
 #endif
             }
