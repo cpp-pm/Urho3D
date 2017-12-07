@@ -33,8 +33,8 @@
 #include <SDL2/SDL_surface.h>
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <STB/stb_image.h>
-#include <STB/stb_image_write.h>
+#include <stb/stb_image.h>
+#include <stb/stb_image_write.h>
 #include "../DebugNew.h"
 
 #ifndef MAKEFOURCC
