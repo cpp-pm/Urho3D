@@ -36,7 +36,7 @@
 #include "../Math/MathDefs.h"
 #include <mach/mach_host.h>
 #elif !defined(ANDROID) && !defined(RPI) && !defined(__EMSCRIPTEN__)
-#include <LibCpuId/libcpuid.h>
+#include <libcpuid/libcpuid.h>
 #endif
 
 #ifdef _WIN32
