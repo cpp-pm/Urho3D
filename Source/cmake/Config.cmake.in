@@ -1,5 +1,6 @@
 @PACKAGE_INIT@
 
+find_package(freetype CONFIG REQUIRED)
 find_package(RapidJSON CONFIG REQUIRED)
 find_package(jo_jpeg CONFIG REQUIRED)
 find_package(lz4 CONFIG REQUIRED)
