@@ -29,7 +29,7 @@
 #include "../IO/Log.h"
 #include "../Resource/Decompress.h"
 
-#include <JO/jo_jpeg.h>
+#include <jo_jpeg/jo_jpeg.h>
 #include <SDL2/SDL_surface.h>
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION

@@ -31,8 +31,8 @@
 #include <windows.h>
 #endif
 
-#include <LZ4/lz4.h>
-#include <LZ4/lz4hc.h>
+#include <lz4.h>
+#include <lz4hc.h>
 
 #include <Urho3D/DebugNew.h>
 
