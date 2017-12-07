@@ -39,12 +39,12 @@ if (COMMAND cmake_policy)
   ### Hunter snapshot that will be used ###
 include("CMake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.182.tar.gz"
-    SHA1 "ed8af5a09e096fe2c5690a674ce9452030d96905"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.183.tar.gz"
+    SHA1 "ecd498d52df49e799deaea05f3692dbc2342421b"
 )
 
 # Set project name
-project (Urho3D)
+project(Urho3D VERSION 1.7)
 
 # Set CMake modules search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake/Modules")
@@ -184,6 +184,39 @@ endif ()
 
 # Setup SDK-like include dir in the build tree for building the Urho3D library
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
+
+# Installation (https://github.com/forexample/package-example) {
+
+set(config_install_dir "lib/cmake/${PROJECT_NAME}")
+set(include_install_dir "include")
+
+set(generated_dir "${CMAKE_CURRENT_BINARY_DIR}/generated")
+
+set(version_config "${generated_dir}/${PROJECT_NAME}ConfigVersion.cmake")
+set(project_config "${generated_dir}/${PROJECT_NAME}Config.cmake")
+set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+set(namespace "${PROJECT_NAME}::")
+
+include(CMakePackageConfigHelpers)
+
+# Use:
+#   * PROJECT_VERSION
+write_basic_package_version_file(
+    "${version_config}" COMPATIBILITY SameMajorVersion
+)
+
+install(
+    FILES "${project_config}" "${version_config}"
+    DESTINATION "${config_install_dir}"
+)
+
+install(
+    EXPORT "${TARGETS_EXPORT_NAME}"
+    NAMESPACE "${namespace}"
+    DESTINATION "${config_install_dir}"
+)
+
+# }
 
 # Urho3D source
 add_subdirectory (Source)

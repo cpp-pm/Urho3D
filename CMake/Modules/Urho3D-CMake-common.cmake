@@ -906,7 +906,7 @@ macro (setup_target)
     include_directories (${INCLUDE_DIRS})
     # Link libraries
     define_dependency_libs (${TARGET_NAME})
-    target_link_libraries (${TARGET_NAME} ${ABSOLUTE_PATH_LIBS} ${LIBS})
+    target_link_libraries (${TARGET_NAME} PUBLIC ${ABSOLUTE_PATH_LIBS} ${LIBS})
     # Enable PCH if requested
     if (${TARGET_NAME}_HEADER_PATHNAME)
         enable_pch (${${TARGET_NAME}_HEADER_PATHNAME})

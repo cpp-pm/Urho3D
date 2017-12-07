@@ -1,0 +1,21 @@
+@PACKAGE_INIT@
+
+find_package(RapidJSON CONFIG REQUIRED)
+find_package(jo_jpeg CONFIG REQUIRED)
+find_package(lz4 CONFIG REQUIRED)
+find_package(pugixml CONFIG REQUIRED)
+find_package(stanhull CONFIG REQUIRED)
+find_package(stb CONFIG REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
+
+if(NOT "@IOS@" AND NOT "@ANDROID@" AND NOT "@RPI@" AND NOT "@WEB@")
+  if("@URHO3D_OPENGL@")
+    find_package(glew CONFIG REQUIRED)
+  elseif(NOT "@URHO3D_D3D11@")
+    find_package(mojoshader CONFIG REQUIRED)
+  endif()
+  find_package(libcpuid CONFIG REQUIRED)
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
+check_required_components("@PROJECT_NAME@")
