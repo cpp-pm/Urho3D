@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 
-set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING ${DOC_STRING})
-set(CMAKE_BUILD_TYPE Release CACHE STRING ${DOC_STRING})
+set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "")
+set(CMAKE_BUILD_TYPE Release CACHE STRING "")
 
 # Define other useful variables not defined by CMake
 if (CMAKE_GENERATOR STREQUAL Xcode)
