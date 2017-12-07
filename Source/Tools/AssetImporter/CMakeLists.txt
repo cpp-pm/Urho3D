@@ -27,9 +27,9 @@ set (TARGET_NAME AssetImporter)
 define_source_files ()
 
 # Define dependency libs
-add_subdirectory (../../ThirdParty/Assimp ../../ThirdParty/Assimp)
-set (LIBS Assimp)
-set (INCLUDE_DIRS ../../ThirdParty/Assimp/include)
+hunter_add_package(Assimp)
+find_package(Assimp CONFIG REQUIRED)
+set (LIBS Assimp::assimp)
 
 # Setup target
 setup_executable (TOOL)
