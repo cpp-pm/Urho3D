@@ -24,10 +24,10 @@
 
 #include "../Core/Object.h"
 
-#include <SDL/SDL_joystick.h>
-#include <SDL/SDL_gamecontroller.h>
-#include <SDL/SDL_keycode.h>
-#include <SDL/SDL_mouse.h>
+#include <SDL2/SDL_joystick.h>
+#include <SDL2/SDL_gamecontroller.h>
+#include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_mouse.h>
 
 namespace Urho3D
 {

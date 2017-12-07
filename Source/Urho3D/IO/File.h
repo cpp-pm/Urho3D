@@ -28,7 +28,7 @@
 #include "../IO/Serializer.h"
 
 #ifdef ANDROID
-#include <SDL/SDL_rwops.h>
+#include <SDL2/SDL_rwops.h>
 #endif
 
 namespace Urho3D

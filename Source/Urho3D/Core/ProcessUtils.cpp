@@ -80,7 +80,7 @@ inline void SetFPUState(unsigned control)
 #endif
 
 #ifndef MINI_URHO
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #endif
 
 #include "../DebugNew.h"
