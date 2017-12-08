@@ -2428,7 +2428,7 @@ bool Graphics::OpenWindow(int width, int height, bool resizable, bool borderless
         impl_->window_ = SDL_CreateWindow(windowTitle_.CString(), position_.x_, position_.y_, width, height, flags);
     }
     else
-        impl_->window_ = SDL_CreateWindowFrom(externalWindow_, 0);
+        impl_->window_ = SDL_CreateWindowFrom(externalWindow_);
 
     if (!impl_->window_)
     {
