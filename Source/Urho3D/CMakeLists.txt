@@ -285,6 +285,10 @@ if(URHO3D_PHYSICS)
   target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_PHYSICS)
 endif()
 
+if(URHO3D_URHO2D)
+  target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_URHO2D)
+endif()
+
 if (NOT ANDROID AND NOT WEB)
     file (READ .soversion SOVERSION)
     string (STRIP ${SOVERSION} SOVERSION)
