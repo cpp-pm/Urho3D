@@ -193,18 +193,16 @@ if (URHO3D_URHO2D)
 endif ()
 
 if (URHO3D_PHYSICS)
-  ## #################################################################
-  ## Dependencies - Bullet
-  ## #################################################################
-  #add_subdirectory (ThirdParty/Bullet)
-  hunter_add_package(Bullet)
-  find_package(Bullet CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS Bullet::Bullet)
-
-  # Support includes lacking full path:
-  #include "LinearMath/btHashMap.h"
-  include_directories("${BULLET_ROOT}/include/Bullet")
-  
+  hunter_add_package(bullet)
+  find_package(bullet CONFIG REQUIRED)
+  list(
+      APPEND
+      HUNTER_THIRD_PARTY_DEPS
+      bullet::BulletCollision
+      bullet::BulletDynamics
+      bullet::BulletSoftBody
+      bullet::LinearMath
+  )
 endif ()
 
 if (NOT IOS AND NOT ANDROID AND NOT RPI AND NOT WEB)

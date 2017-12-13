@@ -39,8 +39,8 @@ if (COMMAND cmake_policy)
   ### Hunter snapshot that will be used ###
 include("CMake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.183.tar.gz"
-    SHA1 "ecd498d52df49e799deaea05f3692dbc2342421b"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.190.tar.gz"
+    SHA1 "7c7b30252ee125dfc53a4743df4103e85898536f"
 )
 
 # Set project name
