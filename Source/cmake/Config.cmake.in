@@ -9,6 +9,10 @@ find_package(stanhull CONFIG REQUIRED)
 find_package(stb CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 
+if("@URHO3D_PHYSICS@")
+  find_package(bullet CONFIG REQUIRED)
+endif()
+
 if(NOT "@IOS@" AND NOT "@ANDROID@" AND NOT "@RPI@" AND NOT "@WEB@")
   if("@URHO3D_OPENGL@")
     find_package(glew CONFIG REQUIRED)
