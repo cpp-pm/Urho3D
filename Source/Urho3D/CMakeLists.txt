@@ -280,6 +280,11 @@ if (IOS)
     set (EXCLUDE_FROM_ALL EXCLUDE_FROM_ALL)
 endif ()
 setup_library (${URHO3D_LIB_TYPE} ${EXCLUDE_FROM_ALL})
+
+if(URHO3D_PHYSICS)
+  target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_PHYSICS)
+endif()
+
 if (NOT ANDROID AND NOT WEB)
     file (READ .soversion SOVERSION)
     string (STRIP ${SOVERSION} SOVERSION)
