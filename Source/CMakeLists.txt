@@ -145,36 +145,17 @@ if (URHO3D_DATABASE_SQLITE)
 endif ()
 
 if (URHO3D_NAVIGATION)
-
-  ## #################################################################
-  ## Dependencies - Detour, DetourCrow, DetourCache
-  ## #################################################################
-  #add_subdirectory (ThirdParty/Detour)
-  hunter_add_package(Detour)
-  find_package(Detour CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS Detour::Detour)
-
-  # For now we add the full path explicitly to avoid updating source
-  include_directories("${DETOUR_ROOT}/include/Detour") 
-
-  #add_subdirectory (ThirdParty/DetourCrowd)
-  hunter_add_package(DetourCrowd)
-  find_package(DetourCrowd CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS DetourCrowd::DetourCrowd)
-
-  #add_subdirectory (ThirdParty/DetourTileCache)
-  hunter_add_package(DetourTileCache)
-  find_package(DetourTileCache CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS DetourTileCache::DetourTileCache)
-
-  ## #################################################################
-  ## Dependencies - Recast
-  ## #################################################################
-  #add_subdirectory (ThirdParty/Recast)
-  hunter_add_package(Recast)
-  find_package(Recast CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS Recast::Recast)
-endif ()
+  hunter_add_package(recastnavigation)
+  find_package(recastnavigation CONFIG REQUIRED)
+  list(
+      APPEND
+      HUNTER_THIRD_PARTY_DEPS
+      recastnavigation::detour
+      recastnavigation::detour_crowd
+      recastnavigation::detour_tile_cache
+      recastnavigation::recast
+  )
+endif()
 
 if (URHO3D_URHO2D)
   ## #################################################################

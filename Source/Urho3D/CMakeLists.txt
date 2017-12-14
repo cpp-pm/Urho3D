@@ -257,10 +257,6 @@ list (APPEND SOURCE_FILES ${GEN_CPP_FILES} ${ALL_OBJ_FILES} librevision.h Urho3D
 # Define dependency libs
 # Add include directories to find the precompiled header, export header, and installed headers from thirdparty libs
 set (INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
-if (URHO3D_NAVIGATION)
-    # DetourTileCache and DetourCrowd libraries depend on Detour's include dir to be added in the header search path
-    list (APPEND INCLUDE_DIRS ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty/Detour)
-endif ()
 if (URHO3D_LUA)
     # Lua/LuaJIT library depends on its own include dir to be added in the header search path
     # This is more practical than patching its header files in many places to make them work with relative path
@@ -287,6 +283,10 @@ endif()
 
 if(URHO3D_URHO2D)
   target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_URHO2D)
+endif()
+
+if(URHO3D_NAVIGATION)
+  target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_NAVIGATION)
 endif()
 
 if (NOT ANDROID AND NOT WEB)
