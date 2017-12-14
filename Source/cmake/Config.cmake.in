@@ -13,6 +13,10 @@ if("@URHO3D_PHYSICS@")
   find_package(bullet CONFIG REQUIRED)
 endif()
 
+if("@URHO3D_URHO2D@")
+  find_package(Box2D CONFIG REQUIRED)
+endif()
+
 if(NOT "@IOS@" AND NOT "@ANDROID@" AND NOT "@RPI@" AND NOT "@WEB@")
   if("@URHO3D_OPENGL@")
     find_package(glew CONFIG REQUIRED)
