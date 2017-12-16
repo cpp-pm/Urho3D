@@ -123,13 +123,9 @@ if (URHO3D_DATABASE_ODBC)
 endif ()
 
 if (URHO3D_DATABASE_SQLITE)
-  ## #################################################################
-  ## Dependencies - SQLite
-  ## #################################################################
-  #add_subdirectory (ThirdParty/SQLite)
-  hunter_add_package(SQLite)
-  find_package(SQLite CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS sqlite::sqlite)
+  hunter_add_package(sqlite3)
+  find_package(sqlite3 CONFIG REQUIRED)
+  list(APPEND HUNTER_THIRD_PARTY_DEPS sqlite3::sqlite3)
 endif ()
 
 if (URHO3D_NAVIGATION)

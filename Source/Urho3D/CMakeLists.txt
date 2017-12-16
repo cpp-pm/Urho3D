@@ -297,6 +297,10 @@ if(URHO3D_ANGELSCRIPT)
   target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_ANGELSCRIPT)
 endif()
 
+if(URHO3D_DATABASE_SQLITE OR URHO3D_DATABASE_ODBC)
+  target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_DATABASE)
+endif()
+
 if (NOT ANDROID AND NOT WEB)
     file (READ .soversion SOVERSION)
     string (STRIP ${SOVERSION} SOVERSION)
