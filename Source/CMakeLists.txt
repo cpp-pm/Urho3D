@@ -98,10 +98,6 @@ find_package(SDL2 CONFIG REQUIRED)
 set(HUNTER_THIRD_PARTY_DEPS freetype::freetype jo_jpeg::jo_jpeg lz4::lz4 pugixml stanhull::stanhull stb::stb SDL2::SDL2)
 
 if (URHO3D_ANGELSCRIPT)
-  ## #################################################################
-  ## Dependencies - AngelScript
-  ## #################################################################
-  #add_subdirectory (ThirdParty/AngelScript)
   hunter_add_package(AngelScript)
   find_package(AngelScript CONFIG REQUIRED)
   list(APPEND HUNTER_THIRD_PARTY_DEPS AngelScript::AngelScript)

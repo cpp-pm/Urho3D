@@ -24,7 +24,11 @@ endif()
 if("@URHO3D_NETWORK@")
   find_package(civetweb CONFIG REQUIRED)
   find_package(kNet CONFIG REQUIRED)
-endif ()
+endif()
+
+if("@URHO3D_ANGELSCRIPT@")
+  find_package(AngelScript CONFIG REQUIRED)
+endif()
 
 if(NOT "@IOS@" AND NOT "@ANDROID@" AND NOT "@RPI@" AND NOT "@WEB@")
   if("@URHO3D_OPENGL@")
