@@ -113,18 +113,10 @@ if (URHO3D_LUA)
 endif ()
 
 if (URHO3D_NETWORK)
-  ## #################################################################
-  ## Dependencies - Civetweb
-  ## #################################################################
-  #add_subdirectory (ThirdParty/Civetweb)
-  hunter_add_package(Civetweb)
-  find_package(Civetweb CONFIG REQUIRED)
-  list(APPEND HUNTER_THIRD_PARTY_DEPS Civetweb::Civetweb)
+  hunter_add_package(civetweb)
+  find_package(civetweb CONFIG REQUIRED)
+  list(APPEND HUNTER_THIRD_PARTY_DEPS civetweb::c-library)
 
-  ## #################################################################
-  ## Dependencies - kNet
-  ## #################################################################
-  #add_subdirectory (ThirdParty/kNet)
   hunter_add_package(kNet)
   find_package(kNet CONFIG REQUIRED)
   list(APPEND HUNTER_THIRD_PARTY_DEPS kNet::kNet)
