@@ -41,6 +41,9 @@ include("CMake/HunterGate.cmake")
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.19.203.tar.gz"
     SHA1 "b4b02cd58f3f6e2945c5e01f3c405c929b849b3c"
+    # Have to use local config for 'toluapp' dependency:
+    # * https://docs.hunter.sh/en/latest/packages/pkg/toluapp.html
+    FILEPATH "${CMAKE_CURRENT_LIST_DIR}/CMake/HunterConfig.cmake"
 )
 
 # Set project name
