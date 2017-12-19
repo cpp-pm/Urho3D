@@ -58,11 +58,7 @@ set (PATH_SUFFIX Urho3D)
 if (CMAKE_PROJECT_NAME STREQUAL Urho3D AND TARGET Urho3D)
     # A special case where library location is already known to be in the build tree of Urho3D project
     set (URHO3D_HOME ${CMAKE_BINARY_DIR})
-    set (URHO3D_INCLUDE_DIRS ${URHO3D_HOME}/include ${URHO3D_HOME}/include/Urho3D/ThirdParty)
-    if (URHO3D_LUA)
-        # ditto for Lua/LuaJIT
-        list (APPEND URHO3D_INCLUDE_DIRS ${URHO3D_HOME}/include/Urho3D/ThirdParty/Lua${JIT})
-    endif ()
+    set (URHO3D_INCLUDE_DIRS ${URHO3D_HOME}/include)
     set (URHO3D_LIBRARIES Urho3D)
     set (FOUND_MESSAGE "Found Urho3D: as CMake target")
     set (URHO3D_COMPILE_RESULT TRUE)
@@ -134,10 +130,6 @@ else ()
         if (NOT URHO3D_HOME)
             # URHO3D_HOME is not set when using SDK installed on system-wide default location, so set it now
             get_filename_component (URHO3D_HOME ${URHO3D_INCLUDE_DIRS} PATH)
-        endif ()
-        list (APPEND URHO3D_INCLUDE_DIRS ${URHO3D_BASE_INCLUDE_DIR}/ThirdParty)
-        if (URHO3D_LUA)
-            list (APPEND URHO3D_INCLUDE_DIRS ${URHO3D_BASE_INCLUDE_DIR}/ThirdParty/Lua${JIT})
         endif ()
         # Intentionally do no cache the URHO3D_VERSION as it has potential to change frequently
         file (STRINGS ${URHO3D_BASE_INCLUDE_DIR}/librevision.h URHO3D_VERSION REGEX "^const char\\* revision=\"[^\"]*\".*$")

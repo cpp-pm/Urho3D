@@ -43,5 +43,18 @@ if(NOT "@IOS@" AND NOT "@ANDROID@" AND NOT "@RPI@" AND NOT "@WEB@")
   find_package(libcpuid CONFIG REQUIRED)
 endif()
 
+# Copy-paste from Source/CMakeLists.txt
+if("@URHO3D_LUA@")
+  find_package(Lua CONFIG REQUIRED)
+endif()
+
+# Copy-paste from Source/Urho3D/CMakeLists.txt
+if("@URHO3D_LUA@")
+  if("@CMAKE_CROSSCOMPILING@" OR "@URHO3D_LUAJIT@")
+  else()
+    find_package(toluapp CONFIG REQUIRED)
+  endif()
+endif()
+
 include("${CMAKE_CURRENT_LIST_DIR}/@TARGETS_EXPORT_NAME@.cmake")
 check_required_components("@PROJECT_NAME@")

@@ -179,8 +179,9 @@ if (URHO3D_LUA)
             SOURCE_DIR ${CMAKE_SOURCE_DIR}/Source/ThirdParty/toluapp/src/bin
             CMAKE_ARGS -DDEST_RUNTIME_DIR=${CMAKE_BINARY_DIR}/bin/tool -DBAKED_CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} -DURHO3D_UPDATE_SOURCE_TREE=${URHO3D_UPDATE_SOURCE_TREE} ${IOS_FIX})
     else ()
-        # Otherwise, build it internally as per normal
-        add_subdirectory (../ThirdParty/toluapp/src/bin ../ThirdParty/toluapp/src/bin)
+      hunter_add_package(toluapp)
+      find_package(toluapp CONFIG REQUIRED)
+      list(APPEND HUNTER_THIRD_PARTY_DEPS toluapp::toluapp)
     endif ()
     # Use the host tool to generate source files for tolua++ API binding
     file (MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/LuaScript/generated)
@@ -198,8 +199,8 @@ if (URHO3D_LUA)
         list (APPEND GEN_CPP_FILES ${GEN_CPP_FILE})
         file (GLOB PKG_FILES LuaScript/pkgs/${DIR}/*.pkg)
         add_custom_command (OUTPUT ${GEN_CPP_FILE}
-            COMMAND ${CMAKE_BINARY_DIR}/bin/tool/tolua++ -E ${CMAKE_PROJECT_NAME} -L ToCppHook.lua -o ${CMAKE_CURRENT_BINARY_DIR}/${GEN_CPP_FILE} ${NAME}
-            DEPENDS tolua++ ${API_PKG_FILE} ${PKG_FILES} LuaScript/pkgs/ToCppHook.lua
+            COMMAND toluapp::tolua++ -E ${CMAKE_PROJECT_NAME} -L ToCppHook.lua -o ${CMAKE_CURRENT_BINARY_DIR}/${GEN_CPP_FILE} ${NAME}
+            DEPENDS toluapp::tolua++ ${API_PKG_FILE} ${PKG_FILES} LuaScript/pkgs/ToCppHook.lua
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/LuaScript/pkgs
             COMMENT "Generating tolua++ API binding on the fly for ${DIR}")
     endforeach ()
@@ -257,11 +258,6 @@ list (APPEND SOURCE_FILES ${GEN_CPP_FILES} ${ALL_OBJ_FILES} librevision.h Urho3D
 # Define dependency libs
 # Add include directories to find the precompiled header, export header, and installed headers from thirdparty libs
 set (INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty)
-if (URHO3D_LUA)
-    # Lua/LuaJIT library depends on its own include dir to be added in the header search path
-    # This is more practical than patching its header files in many places to make them work with relative path
-    list (APPEND INCLUDE_DIRS ${CMAKE_BINARY_DIR}/${DEST_INCLUDE_DIR}/ThirdParty/Lua${JIT})
-endif ()
 
 # Setup library output path
 if (ANDROID)
@@ -299,6 +295,10 @@ endif()
 
 if(URHO3D_DATABASE_SQLITE OR URHO3D_DATABASE_ODBC)
   target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_DATABASE)
+endif()
+
+if(URHO3D_LUA)
+  target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_LUA)
 endif()
 
 if (NOT ANDROID AND NOT WEB)
@@ -480,10 +480,6 @@ if (GLOBAL_INCLUDE_DIRS)
     string (REPLACE "${SYSROOT}" "" GLOBAL_INCLUDE_DIRS ${GLOBAL_INCLUDE_DIRS})
 endif ()
 set (ENGINE_INCLUDE_DIRS "${DASH}I\"\${includedir}\" ${DASH}I\"\${includedir}/Urho3D/ThirdParty\"")
-if (URHO3D_LUA)
-    # ditto for Lua/LuaJIT
-    set (ENGINE_INCLUDE_DIRS "${ENGINE_INCLUDE_DIRS} ${DASH}I\"\${includedir}/Urho3D/ThirdParty/Lua${JIT}\"")
-endif ()
 # todo: Reevaluate the command below when the CMake minimum required version is set to 2.8.12 (and remove only when the deprecated add_compiler_export_flags() is not used anymore)
 string (REGEX REPLACE " -fvisibility[^ ]+" "" CLEANED_CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})   # Remove visibility compiler options that are only used for building the library
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/Urho3D.pc.in ${CMAKE_CURRENT_BINARY_DIR}/Urho3D.pc${PC_SUFFIX} @ONLY)
