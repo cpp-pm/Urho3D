@@ -24,7 +24,7 @@
 
 #include "../IO/VectorBuffer.h"
 
-#include <toluapp/tolua++.h>
+#include <tolua++.h>
 
 #include "../LuaScript/ToluaUtils.h"
 

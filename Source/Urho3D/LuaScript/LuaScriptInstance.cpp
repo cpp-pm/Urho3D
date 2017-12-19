@@ -39,7 +39,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneEvents.h"
 
-#include <toluapp/tolua++.h>
+#include <tolua++.h>
 #include "../LuaScript/ToluaUtils.h"
 
 #include "../DebugNew.h"
