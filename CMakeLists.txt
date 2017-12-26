@@ -68,7 +68,7 @@ else ()
 endif ()
 if (ANDROID)
     # For Android platform, install to a path similar to ANDROID_LIBRARY_OUTPUT_PATH variable, e.g. libs/armeabi-v7a
-    set (LIB_SUFFIX s/${ANDROID_NDK_ABI_NAME})
+    set (LIB_SUFFIX s/${CMAKE_ANDROID_ARCH_ABI})
 elseif (URHO3D_64BIT)
     if (EXISTS /usr/lib64)
         set (HAS_LIB64 TRUE)
