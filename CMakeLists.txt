@@ -50,6 +50,10 @@ HunterGate(
 # Set project name
 project(Urho3D VERSION 1.7)
 
+if(ANDROID)
+  set(ANDROID_LIBRARY_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}/libs/${CMAKE_ANDROID_ARCH_ABI}")
+endif()
+
 # Set CMake modules search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMake/Modules")
 
