@@ -125,3 +125,5 @@ list (APPEND LIBS lz4::lz4)
 # Setup target
 setup_executable (TOOL)
 adjust_target_name ()   # Remove postfix from the executable/binary name
+
+target_link_libraries(${TARGET_NAME} PUBLIC Urho3D)

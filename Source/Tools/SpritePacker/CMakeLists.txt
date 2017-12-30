@@ -28,3 +28,4 @@ define_source_files ()
 
 # Setup target
 setup_executable (TOOL)
+target_link_libraries(${TARGET_NAME} PUBLIC Urho3D)

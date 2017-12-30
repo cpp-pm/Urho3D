@@ -301,6 +301,13 @@ if(URHO3D_LUA)
   target_compile_definitions(${TARGET_NAME} PUBLIC URHO3D_LUA)
 endif()
 
+target_include_directories(
+    ${TARGET_NAME}
+    PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/..>"
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/..>"
+)
+
 if (NOT ANDROID AND NOT WEB)
     file (READ .soversion SOVERSION)
     string (STRIP ${SOVERSION} SOVERSION)
