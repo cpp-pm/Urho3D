@@ -92,10 +92,13 @@ else ()
     endif ()
 
     # Android arm64 compiler only emits __aarch64__ while iOS arm64 emits __aarch64__, __arm64__, and __arm__; for armv7a all emit __arm__
-    include(hunter_check_toolchain_definition)
-    hunter_check_toolchain_definition(NAME __arm__ DEFINED arm_defined)
-    hunter_check_toolchain_definition(NAME __aarch64__ DEFINED aarch64_defined)
-    if(arm_defined OR aarch64_defined)
+    try_compile(
+        ARM
+        "${CMAKE_CURRENT_BINARY_DIR}/try_compile_arm/"
+        "${CMAKE_CURRENT_LIST_DIR}/try_compile_arm.cpp"
+        CMAKE_FLAGS "-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}"
+    )
+    if(ARM)
       set(ARM "1" CACHE INTERNAL "")
     else()
       set(ARM "0" CACHE INTERNAL "")
