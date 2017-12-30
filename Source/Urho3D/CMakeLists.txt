@@ -170,19 +170,19 @@ endif ()
 if (URHO3D_LUA)
     # The host tool must be built natively
     if (CMAKE_CROSSCOMPILING OR URHO3D_LUAJIT)
-        # When cross-compiling or using LuaJIT, build the tolua++ host tool as external project using normal Lua (there is not much point using LuaJIT for the tool building even when technically it can)
-        include (ExternalProject)
-        if (IOS)
-            set (IOS_FIX CMAKE_COMMAND /usr/bin/env -i PATH=$ENV{PATH} ${CMAKE_COMMAND} BUILD_COMMAND bash -c "sed -i '' 's/EFFECTIVE_PLATFORM_NAME//g' CMakeScripts/install_postBuildPhase.make*")
-        endif ()
-        ExternalProject_Add (tolua++
-            SOURCE_DIR ${CMAKE_SOURCE_DIR}/Source/ThirdParty/toluapp/src/bin
-            CMAKE_ARGS -DDEST_RUNTIME_DIR=${CMAKE_BINARY_DIR}/bin/tool -DBAKED_CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR} -DURHO3D_UPDATE_SOURCE_TREE=${URHO3D_UPDATE_SOURCE_TREE} ${IOS_FIX})
-    else ()
-      hunter_add_package(toluapp)
-      find_package(toluapp CONFIG REQUIRED)
-      list(APPEND HUNTER_THIRD_PARTY_DEPS toluapp::toluapp)
-    endif ()
+      # When cross-compiling or using LuaJIT, build the tolua++ host tool as external project using normal Lua (there is not much point using LuaJIT for the tool building even when technically it can)
+
+      include(hunter_experimental_add_host_project)
+      hunter_experimental_add_host_project(cmake/host)
+
+      add_executable(toluapp::tolua++ IMPORTED)
+      set_target_properties(toluapp::tolua++ PROPERTIES IMPORTED_LOCATION "${HUNTER_HOST_ROOT}/bin/tolua++")
+    endif()
+
+    hunter_add_package(toluapp)
+    find_package(toluapp CONFIG REQUIRED)
+    list(APPEND HUNTER_THIRD_PARTY_DEPS toluapp::toluapp)
+
     # Use the host tool to generate source files for tolua++ API binding
     file (MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/LuaScript/generated)
     file (GLOB API_PKG_FILES LuaScript/pkgs/*.pkg)
