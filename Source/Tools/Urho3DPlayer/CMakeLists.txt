@@ -29,6 +29,15 @@ define_source_files ()
 # Setup target with resource copying
 setup_main_executable (NOBUNDLE)
 
+target_include_directories(
+    ${TARGET_NAME}
+    PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../../>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/../..>
+)
+
+target_link_libraries(${TARGET_NAME} PUBLIC SDL2::SDL2 Urho3D)
+
 # Setup test cases
 if (URHO3D_ANGELSCRIPT)
     setup_test (NAME Editor OPTIONS Scripts/Editor.as -w)
