@@ -90,8 +90,17 @@ else ()
     if (SIZEOF_POINTER EQUAL 8)
         set (NATIVE_64BIT 1)
     endif ()
+
     # Android arm64 compiler only emits __aarch64__ while iOS arm64 emits __aarch64__, __arm64__, and __arm__; for armv7a all emit __arm__
-    check_native_define ("__(arm|aarch64)__" ARM)
+    include(hunter_check_toolchain_definition)
+    hunter_check_toolchain_definition(NAME __arm__ DEFINED arm_defined)
+    hunter_check_toolchain_definition(NAME __aarch64__ DEFINED aarch64_defined)
+    if(arm_defined OR aarch64_defined)
+      set(ARM "1" CACHE INTERNAL "")
+    else()
+      set(ARM "0" CACHE INTERNAL "")
+    endif()
+
     # For completeness sake as currently we do not support PowerPC (yet)
     check_native_define ("__(ppc|PPC|powerpc|POWERPC)(64)*__" POWERPC)
     # Check if the target arm platform is currently supported
