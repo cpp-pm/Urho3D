@@ -1234,11 +1234,11 @@ macro (setup_main_executable)
         if (URHO3D_PACKAGING)
             message (WARNING "Resource packaging is not fully supported for Android build currently.")
         endif ()
-        # Add SDL native init function, SDL_Main() entry point must be defined by one of the source files in ${SOURCE_FILES}
-        find_Urho3D_file (ANDROID_MAIN_C_PATH SDL_android_main.c
-            HINTS ${URHO3D_HOME}/include/Urho3D/ThirdParty/SDL/android ${CMAKE_SOURCE_DIR}/Source/ThirdParty/SDL/src/main/android
-            DOC "Path to SDL_android_main.c" MSG_MODE FATAL_ERROR)
-        list (APPEND SOURCE_FILES ${ANDROID_MAIN_C_PATH})
+        set(ANDROID_MAIN_C_PATH "${SDL2_ROOT}/include/SDL2/android/SDL_android_main.c")
+        if(NOT EXISTS "${ANDROID_MAIN_C_PATH}")
+          message(FATAL_ERROR "File not found: ${ANDROID_MAIN_C_PATH}")
+        endif()
+
         # Setup shared library output path
         set_output_directories (${ANDROID_LIBRARY_OUTPUT_PATH} LIBRARY)
         # Setup target as main shared library
