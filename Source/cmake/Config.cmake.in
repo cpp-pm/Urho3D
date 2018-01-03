@@ -50,10 +50,7 @@ endif()
 
 # Copy-paste from Source/Urho3D/CMakeLists.txt
 if("@URHO3D_LUA@")
-  if("@CMAKE_CROSSCOMPILING@" OR "@URHO3D_LUAJIT@")
-  else()
-    find_package(toluapp CONFIG REQUIRED)
-  endif()
+  find_package(toluapp CONFIG REQUIRED)
 endif()
 
 # Copy-paste from Urho3D-CMake-common.cmake (do we need this?)
