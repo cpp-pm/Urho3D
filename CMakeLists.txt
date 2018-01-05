@@ -39,8 +39,8 @@ if (COMMAND cmake_policy)
   ### Hunter snapshot that will be used ###
 include("CMake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.204.tar.gz"
-    SHA1 "8781d38df948f895929c8b2736170e6ed2a80415"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.219.tar.gz"
+    SHA1 "a6ed16e70b1c235fdcfef07ad406aa7c737d4be2"
 
     # Have to use local config for 'toluapp' dependency:
     # * https://docs.hunter.sh/en/latest/packages/pkg/toluapp.html
