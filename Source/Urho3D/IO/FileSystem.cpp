@@ -84,7 +84,11 @@ int DoSystemCommand(const String& commandLine, bool redirectToLog, Context* cont
 #if !defined(NO_POPEN) && !defined(MINI_URHO)
     if (!redirectToLog)
 #endif
+#if defined(__APPLE__) && defined(__MACH__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+        return -1;
+#else
         return system(commandLine.CString());
+#endif
 
 #if !defined(NO_POPEN) && !defined(MINI_URHO)
     // Get a platform-agnostic temporary file name for stderr redirection
